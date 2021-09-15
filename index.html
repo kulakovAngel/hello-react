@@ -16,19 +16,29 @@
     <div id='app-root'></div>
     <script type="text/babel">
         function Button(props) {
+            const content = props.children || 'Click Me!';
+            
+            const handleClick = () => {
+                console.log('click!');
+            };
+
             return (
                 <button
-                    style={{color: props.color}}
+                    style={{ color: props.color }}
+                    onClick={handleClick}
                 >
-                    {props.children} Click Me
+                    {content}
                 </button>
             );
         }
 
-        // create 2 buttons with different props
-
         function App() {
-            return <Button color={'red'}>Render from app</Button>
+            return (
+                <div>
+                    <Button color={'red'}>Render from app</Button>
+                    <Button color={'blue'} />
+                </div>
+            )
         }
 
         ReactDOM.render(
