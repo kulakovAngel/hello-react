@@ -5,14 +5,20 @@ import reportWebVitals from './reportWebVitals';
 class Button extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {backgroundColor: ''};
+        this.state = {
+            isActive: false,
+            clickCounter: 0,
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        this.setState({
-            backgroundColor: 'violet',
-        })
+        this.setState(prevState => ({
+            isActive: !prevState.isActive,
+            clickCounter: prevState.clickCounter + 1,
+        }), () => {
+            console.log(this.state);
+        });
     }
 
     render() {
@@ -22,11 +28,11 @@ class Button extends React.Component {
             <button
                 style={{
                     color: this.props.color,
-                    backgroundColor: this.state.backgroundColor,
+                    backgroundColor: this.state.isActive ? 'violet' : '',
                 }}
                 onClick={this.handleClick}
             >
-                {content}
+                {content} {this.state.clickCounter}
             </button>
         );
     }
