@@ -7,18 +7,20 @@ class Button extends React.Component {
         super(props);
         this.state = {
             isActive: false,
-            clickCounter: 0,
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.toogleActive = this.toogleActive.bind(this);
+        this.handlerClick = this.handlerClick.bind(this);
     }
 
-    handleClick() {
+    toogleActive() {
         this.setState(prevState => ({
             isActive: !prevState.isActive,
-            clickCounter: prevState.clickCounter + 1,
-        }), () => {
-            console.log(this.state);
-        });
+        }));
+    }
+
+    handlerClick() {
+        this.props.handlerClick();
+        this.toogleActive();
     }
 
     render() {
@@ -30,20 +32,41 @@ class Button extends React.Component {
                     color: this.props.color,
                     backgroundColor: this.state.isActive ? 'violet' : '',
                 }}
-                onClick={this.handleClick}
+                onClick={this.handlerClick}
             >
-                {content} {this.state.clickCounter}
+                {content}
             </button>
         );
     }
 }
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            clickCounter: 0,
+        };
+        this.count = this.count.bind(this);
+    }
+
+    count() {
+        this.setState(prevState => ({
+            clickCounter: prevState.clickCounter + 1,
+        }));
+    }
+
     render() {
         return (
             <div>
-                <Button color={'red'}>Render from app</Button>
-                <Button color={'blue'} />
+                <Button
+                    color={'red'}
+                    handlerClick={this.count}
+                >
+                    Click me!
+                </Button>
+                <div>
+                    Button was clicked {this.state.clickCounter} times.
+                </div>
             </div>
         )
     }
