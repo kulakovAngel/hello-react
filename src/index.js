@@ -1,76 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-
-class Button extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isActive: false,
-        };
-        this.toogleActive = this.toogleActive.bind(this);
-        this.handlerClick = this.handlerClick.bind(this);
-    }
-
-    toogleActive() {
-        this.setState(prevState => ({
-            isActive: !prevState.isActive,
-        }));
-    }
-
-    handlerClick() {
-        this.props.handlerClick();
-        this.toogleActive();
-    }
-
-    render() {
-        const content = this.props.children || 'Click Me!';
-
-        return (
-            <button
-                style={{
-                    color: this.props.color,
-                    backgroundColor: this.state.isActive ? 'violet' : '',
-                }}
-                onClick={this.handlerClick}
-            >
-                {content}
-            </button>
-        );
-    }
-}
-
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clickCounter: 0,
-        };
-        this.count = this.count.bind(this);
-    }
-
-    count() {
-        this.setState(prevState => ({
-            clickCounter: prevState.clickCounter + 1,
-        }));
-    }
-
-    render() {
-        return (
-            <div>
-                <Button
-                    color={'red'}
-                    handlerClick={this.count}
-                >
-                    Click me!
-                </Button>
-                <div>
-                    Button was clicked {this.state.clickCounter} times.
-                </div>
-            </div>
-        )
-    }
-}
+import {App} from './App';
 
 ReactDOM.render(
     <App />,
